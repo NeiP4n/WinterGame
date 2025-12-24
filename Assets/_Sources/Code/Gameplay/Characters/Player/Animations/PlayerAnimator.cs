@@ -26,9 +26,6 @@ namespace Game.States
         {
             _input = input;
             _mover = mover;
-
-            _mover.OnJump += HandleJump;
-
             _initialized = true;
         }
 

@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Game.Interfaces;
+using Game.Managers;
 using Sources.Code.Configs;
-// using Sources.Code.Gameplay.AudioSystems;
-// using Sources.Code.Gameplay.DoorRoot;
 using Sources.Code.Gameplay.GameSaves;
-// using Sources.Code.Gameplay.Jails;
-// using Sources.Code.Gameplay.PlayerRoot;
 using Sources.Code.UI;
 using UnityEngine;
 
@@ -18,138 +16,141 @@ namespace Sources.Code.Gameplay
         private readonly ScreenSwitcher _screenSwitcher;
         private readonly PopupSwitcher _popupSwitcher;
         private readonly IMain _main;
-        private readonly List<IMonoBehaviour> _monoBehaviours = new List<IMonoBehaviour>();
+        private readonly List<IMonoBehaviour> _monoBehaviours = new();
         private readonly GameTokenProvider _tokenProvider;
         private readonly LevelsConfig _levelsConfig;
-        // private readonly MusicSystem _musicSystem;
-        
-        private CancellationTokenSource _gameTokenSource = new();
-        private GameEventPopup _gameEventScreen;
+        private readonly IInputManager _inputManager;
+
+        private CancellationTokenSource _gameTokenSource;
         private CancellationToken _gameToken;
+
+        private GameEventPopup _gameEventScreen;
         private Level _levelInstance;
-        // private PlayerCharacter _playerCharacter;
-        // private Player _player;
+        private PlayerCharacter _playerCharacter;
         private bool _isWin;
-        
+
         public int CurrentLevelNumber
         {
             get => _playerProgress.LevelNumber;
             set => _playerProgress.LevelNumber = value;
         }
-    
+
         public int MaxLevels => _levelsConfig.LevelCount;
-        
+
         public Game(IMain main)
         {
+            _main = main;
             _tokenProvider = GameTokenProvider.Instance;
             _playerProgress = GameSaverLoader.Instance.PlayerProgress;
             _screenSwitcher = ScreenSwitcher.Instance;
             _popupSwitcher = PopupSwitcher.Instance;
             _levelsConfig = LevelsConfig.Instance;
-            // _musicSystem = new MusicSystem();
-            _main = main;
+            _inputManager = InputManager.Instance;
         }
-        
+
         public void ThisUpdate()
         {
             if (_screenSwitcher.ScreenIsActive<GameScreen>(out _) && Input.GetKeyDown(KeyCode.Escape))
             {
-                //ClearLevel();
-                var menuScreen = _screenSwitcher.ShowScreen<MenuScreen>();
-                menuScreen.Init(_main);
+                ReleaseCursor();
+
+                var menu = _screenSwitcher.ShowScreen<MenuScreen>();
+                menu.Init(_main);
+                return;
             }
 
-            foreach (var monoBehaviour in _monoBehaviours)
-                monoBehaviour.Tick();
-            
-#if (UNITY_EDITOR)
-            if (Input.GetKeyDown(KeyCode.F))
-                ClearSaves();
-
-            if (Input.GetKeyDown(KeyCode.G))
-                OnNextLevel();
-#endif
+            foreach (var mono in _monoBehaviours)
+                mono.Tick();
         }
 
-        public void Dispose()
-        {
-            foreach (var monoBehaviour in _monoBehaviours)
-                monoBehaviour.Dispose();
-            
-            if (_gameTokenSource.IsCancellationRequested)
-                return;
-                                    
-            _gameTokenSource.Cancel();
-            _gameTokenSource.Dispose();
-        }
 
         public void StartGame()
         {
             _popupSwitcher.Init();
+
             _gameTokenSource = new CancellationTokenSource();
             _gameToken = _gameTokenSource.Token;
-            _tokenProvider.Init(_gameTokenSource.Token);
+            _tokenProvider.Init(_gameToken);
+
+            int index = CurrentLevelNumber - 1;
+            _levelInstance = Object.Instantiate(_levelsConfig.GetLevelPrefabByIndex(index));
+
+            _playerCharacter = _levelInstance.PlayerCharacter;
+            _playerCharacter.Construct(_inputManager);
+
+            if (_playerCharacter is IMonoBehaviour mono)
+                _monoBehaviours.Add(mono);
             
-            int levelIndex = CurrentLevelNumber - 1;
-            _levelInstance = GameObject.Instantiate(_levelsConfig.GetLevelPrefabByIndex(levelIndex));
-            
+            ApplyGameplayCursor();
+
             _screenSwitcher.ShowScreen<GameScreen>().Init();
         }
-        
-        private void OnDied(Vector2 pos)
+
+
+
+
+        public void Dispose()
         {
-            DefeatLevel().Forget();
-        }
-        
-        private void OnNextLevel()
-        {
-            if (CurrentLevelNumber == MaxLevels)
+            ClearLevel();
+
+            if (_gameTokenSource != null)
             {
-                _isWin = true;
-                _gameEventScreen = _popupSwitcher.GetPopup<GameEventPopup>();
-                _gameEventScreen.Init();
-                _gameEventScreen.ShowVictory();
-                return;
+                _gameTokenSource.Cancel();
+                _gameTokenSource.Dispose();
+                _gameTokenSource = null;
             }
-            
-            CurrentLevelNumber++;
-            RestartLevel();
         }
-        
+
+        private void RestartLevel()
+        {
+            ClearLevel();
+            _isWin = false;
+            StartGame();
+        }
+
         private async UniTaskVoid DefeatLevel()
         {
             if (_isWin)
                 return;
-            
+
             _gameEventScreen = _popupSwitcher.GetPopup<GameEventPopup>();
             _gameEventScreen.Init();
             _gameEventScreen.ShowDefeat();
 
-            await UniTask.WaitForSeconds(1.5f, cancellationToken: _gameToken);
-                            
+            await UniTask.Delay(1500, cancellationToken: _gameToken);
+
             _gameEventScreen.Destroy();
             RestartLevel();
         }
 
         private void ClearLevel()
         {
-            if (_levelInstance == null)
-                return;
-            
+            foreach (var mono in _monoBehaviours)
+                mono.Dispose();
+
             _monoBehaviours.Clear();
-            Dispose();
-            _levelInstance = null;
+
+            if (_gameEventScreen != null)
+            {
+                _gameEventScreen.Destroy();
+                _gameEventScreen = null;
+            }
+
+            if (_levelInstance != null)
+            {
+                Object.Destroy(_levelInstance.gameObject);
+                _levelInstance = null;
+            }
         }
-        
-        private void RestartLevel()
+        private void ApplyGameplayCursor()
         {
-            ClearLevel();
-            StartGame();
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
-        
-        private void ClearSaves()
+        private void ReleaseCursor()
         {
-            CurrentLevelNumber = 1;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }

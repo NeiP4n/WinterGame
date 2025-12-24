@@ -1,6 +1,5 @@
 using System;
 using Game.Interfaces;
-using Game.Managers;
 using UnityEngine;
 
 namespace Game.Characters 
@@ -18,7 +17,6 @@ namespace Game.Characters
         public float MaxSpeed => speedRun;
 
         [Header("Jump and gravity specifics")]
-        [SerializeField] private float powerJump = 10f;
         [SerializeField] private float gravity = 20f;
         [SerializeField] private float fallMultiplierJump = 2f;
         [SerializeField] private float fallMultiplierFall = 1.2f;
@@ -27,9 +25,6 @@ namespace Game.Characters
         [SerializeField] private float maxGroundAngle = 60f;
         [SerializeField] private bool active = true;
         private float verticalVelocity = -2f;
-        private bool jumped;
-        public event Action OnJump;
-
         public bool IsGrounded { get; private set; }
 
         private IInputManager _input;
@@ -48,7 +43,6 @@ namespace Game.Characters
             if (!active) return;
 
             DoMove();        
-            DoJump();        
             ApplyGravity();   
             _stamina.RegenStamina(); 
         }
@@ -108,11 +102,10 @@ namespace Game.Characters
             {
                 if (verticalVelocity < 0f) 
                     verticalVelocity = -2f;
-                jumped = false;
             }
             else
             {
-                if (verticalVelocity > 0f && jumped)
+                if (verticalVelocity > 0f)
                     verticalVelocity -= gravity * fallMultiplierJump * Time.deltaTime;
                 else
                     verticalVelocity -= gravity * fallMultiplierFall * Time.deltaTime;
@@ -150,30 +143,6 @@ namespace Game.Characters
             }
 
             return false;
-        }
-
-        public void AddJumpImpulse(float jumpPower)
-        {
-            verticalVelocity = Mathf.Sqrt(jumpPower * 2f * gravity);
-            jumped = true;
-        }
-
-
-        public void Jump()
-        {
-            if (IsGrounded)
-            {
-                AddJumpImpulse(powerJump);
-                OnJump?.Invoke();
-                Debug.Log(OnJump);
-            }
-        }
-        public void DoJump()
-        {
-            if (_input.JumpPressed && IsGrounded)
-            {
-                Jump(); 
-            }
         }
     }
 }

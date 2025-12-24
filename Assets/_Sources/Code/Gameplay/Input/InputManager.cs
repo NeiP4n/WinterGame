@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Interfaces;
+using Sources.Code.Core.Singletones;
 
 namespace Game.Managers
 {
-    public class InputManager : MonoBehaviour, IInputManager
+    public class InputManager : SingletonBehaviour<InputManager>, IInputManager
     {
         public float Horizontal { get; private set; }
         public float Vertical { get; private set; }

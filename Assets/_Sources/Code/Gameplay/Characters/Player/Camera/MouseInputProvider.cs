@@ -14,7 +14,6 @@ public class MouseInputProvider : ICameraInputProvider
         {
             return Mouse.current.delta.ReadValue();
         }
-
         public Vector2 GetMoveInput()
         {
             return new Vector2(_input.Horizontal, _input.Vertical);

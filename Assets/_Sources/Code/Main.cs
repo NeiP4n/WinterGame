@@ -1,23 +1,25 @@
-using Sources.Code.Gameplay;
 // using Sources.Code.Gameplay.AudioSystems;
 // using Sources.Code.Particles;
+using Game.Managers;
 using Sources.Code.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Sources.Code
 {
+    [DefaultExecutionOrder(-100)]
     public class Main : MonoBehaviour, IMain
     {
-        [SerializeField] private Camera _camera;
-        [SerializeField] private Transform _particlesParent;
+        // [SerializeField] private Transform _particlesParent;
         
-        private Game _game;
+        private Gameplay.Game _game;
         
-        public Camera Camera => _camera;
+
 
         private void Start()
         {
+            var inputManager = InputManager.Instance;
+
             // var audioSystem = AudioSystem.Instance;
             // audioSystem.Init();
             
@@ -27,9 +29,10 @@ namespace Sources.Code
             // var particlesPlayer = ParticlesPlayer.Instance;
             // particlesPlayer.Init(_particlesParent);
             
-            // _game = new Game(this);
+            _game = new Gameplay.Game(this);
             
             screenSwitcher.ShowScreen<MenuScreen>().Init(this);
+            
         }
     
         private void Update()
@@ -37,8 +40,12 @@ namespace Sources.Code
             _game?.ThisUpdate();
 
 #if (UNITY_EDITOR)
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R)) {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            
 #endif
         }
 
@@ -58,7 +65,7 @@ namespace Sources.Code
 
     public interface IMain
     {
-        public Camera Camera { get; }
+        // public Camera Camera { get; }
         
         public void StartGame();
     }
