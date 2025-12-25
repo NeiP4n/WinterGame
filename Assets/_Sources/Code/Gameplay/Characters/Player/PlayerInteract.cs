@@ -1,45 +1,61 @@
-using Game.Interfaces;
 using UnityEngine;
+using System;
+using Sources.Code.Interfaces;
 
-public class PlayerInteract : MonoBehaviour, IPlayerInteract
+public class PlayerInteract : MonoBehaviour
 {
-    private Camera playerCamera;
+    [SerializeField] private Camera playerCamera;
+    private IInputManager input;
+
     public float interactDistance = 3f;
-    public event System.Action<IInteractable> OnInteractableDetected;
+    [SerializeField] private LayerMask interactMask;
+
+    private IInteractable current;
+    public event Action<IInteractable> OnFocusChanged;
 
     private void Awake()
     {
         playerCamera = GetComponentInChildren<Camera>();
     }
 
-    public void HandleInput(IInputManager inputManager)
+    public void Construct(IInputManager inputManager)
     {
-        if (inputManager.InteractPressed)
+        input = inputManager;
+    }
+
+    private void Update()
+    {
+        UpdateInteract();
+    }
+
+    public void UpdateInteract()
+    {
+        if (input == null)
+            return;
+
+        UpdateDetection();
+
+        if (input.ConsumeInteract() && current != null && current.CanInteract)
         {
-            TryInteract();
+            current.Interact();
         }
     }
 
-    private void TryInteract()
+    private void UpdateDetection()
     {
-        if (playerCamera == null) return;
-
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
 
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, interactDistance))
+        IInteractable detected = null;
+
+        if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactMask))
         {
-            if (hitInfo.collider.TryGetComponent<IInteractable>(out var interactable))
-            {
-                OnInteractableDetected?.Invoke(interactable);
-            }
-            else
-            {
-                OnInteractableDetected?.Invoke(null);
-            }
+            detected = hit.collider.GetComponentInParent<IInteractable>();
         }
-        else
+
+        if (detected != current)
         {
-            OnInteractableDetected?.Invoke(null);
+            current = detected;
+            OnFocusChanged?.Invoke(current);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using Sources.Code.Interfaces;
 namespace Game.Interfaces
 {
     public interface IUIInteract

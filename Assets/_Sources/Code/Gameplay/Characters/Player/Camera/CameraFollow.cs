@@ -10,13 +10,17 @@ namespace Game.Controllers
         private float amplitude;
         private float frequency;
 
-        private Vector3 currentSineOffset;
-        private Vector3 sineVelocity;
+        private float walkTime;
+        private float currentY;
+        private float yVelocity;
 
-        private SineMotion sineMotion;
         private ICameraInputProvider inputProvider;
 
-        public CameraFollow(Transform headBone, Vector3 offset, float amplitude, float frequency)
+        public CameraFollow(
+            Transform headBone,
+            Vector3 offset,
+            float amplitude,
+            float frequency)
         {
             this.headBone  = headBone;
             this.offset    = offset;
@@ -24,35 +28,40 @@ namespace Game.Controllers
             this.frequency = frequency;
         }
 
-        public void Init(SineMotion sineMotion) =>
-            this.sineMotion = sineMotion;
-
-        public void SetInputProvider(ICameraInputProvider provider) =>
-            this.inputProvider = provider;
+        public void SetInputProvider(ICameraInputProvider provider)
+        {
+            inputProvider = provider;
+        }
 
         public void UpdateCameraPosition(Transform camTransform)
         {
-            if (headBone == null)
+            if (headBone == null || inputProvider == null)
                 return;
 
-            camTransform.position = headBone.position + offset;
+            Vector3 basePosition = headBone.position + offset;
 
-            Vector3 desiredSineOffset = Vector3.zero;
+            bool isMoving = inputProvider.GetMoveInput().sqrMagnitude > 0.01f;
 
-            if (inputProvider != null && sineMotion != null)
+            float targetY = 0f;
+
+            if (isMoving)
             {
-                if (inputProvider.GetMoveInput() != Vector2.zero)
-                    desiredSineOffset = sineMotion.GetSineOffset(amplitude, frequency, Time.time);
+                walkTime += Time.deltaTime;
+                targetY = Mathf.Sin(walkTime * frequency) * amplitude;
+            }
+            else
+            {
+                walkTime = 0f;
             }
 
-            currentSineOffset = Vector3.SmoothDamp(
-                currentSineOffset,
-                desiredSineOffset,
-                ref sineVelocity,
-                0.1f
+            currentY = Mathf.SmoothDamp(
+                currentY,
+                targetY,
+                ref yVelocity,
+                0.08f
             );
 
-            camTransform.position += currentSineOffset;
+            camTransform.position = basePosition + Vector3.up * currentY;
         }
     }
 }

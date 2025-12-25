@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Game.Interfaces
+namespace Sources.Code.Interfaces
 {
     public interface IPlayerJump
     {
@@ -59,6 +59,7 @@ namespace Game.Interfaces
     public interface IInteractable
     {
         void Interact();
-        public event Action<bool> OnItemDetected;
+        bool CanInteract { get; }
+
     }
 }

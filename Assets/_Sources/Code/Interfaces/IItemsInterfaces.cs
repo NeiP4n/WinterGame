@@ -1,4 +1,6 @@
 
+using Sources.Code.Interfaces;
+
 namespace Game.Interfaces
 {
     public interface IDamageableZone

@@ -7,51 +7,63 @@ namespace Sources.Code.UI
 {
     public class PopupSwitcher : SingletonBehaviour<PopupSwitcher>
     {
-        [SerializeField] private Transform _transform;
-        [SerializeField] private List<BasePopup> _popupsPrefabs = new List<BasePopup>();
-        
-        private readonly Dictionary<Type, BasePopup> _popup = new Dictionary<Type, BasePopup>();
+        [SerializeField] private Transform popupsRoot;
+        [SerializeField] private List<BasePopup> popupPrefabs = new();
+
+        private readonly Dictionary<Type, BasePopup> activePopups = new();
+        public event Action<BasePopup> PopupClosed;
+
+
         public void Init()
         {
-            if (_transform.childCount <= 0)
-                return;
-            
-            for (int i = 0; i < _transform.childCount; i++)
-                Destroy(_transform.GetChild(i).gameObject);
+            activePopups.Clear();
+
+            for (int i = popupsRoot.childCount - 1; i >= 0; i--)
+            {
+                Destroy(popupsRoot.GetChild(i).gameObject);
+            }
         }
-        
-        public TPopup GetPopup<TPopup>() where TPopup : BasePopup
+
+        public TPopup Show<TPopup>() where TPopup : BasePopup
         {
-            Type popupType = typeof(TPopup);
-            if (_popup.TryGetValue(popupType, out var foundPopup))
-            {
-                return (TPopup)foundPopup;
-            }
-            else
-            {
-                BasePopup prefab = _popupsPrefabs.Find(x => x.GetType().FullName == popupType.FullName);
-                if (prefab != null)
-                {
-                    BasePopup newPopup = Instantiate(prefab, _transform);
-                    newPopup.Init();
-                    newPopup.Closed += PopupOnClosed;
+            var type = typeof(TPopup);
 
-                    return (TPopup)newPopup;
-                }
-                else
-                {
-                    Debug.LogError($"Popup prefab not found for type {popupType}", this);
-                }
+            if (activePopups.TryGetValue(type, out var existing))
+            {
+                return (TPopup)existing;
             }
 
-            return null;
-
-            void PopupOnClosed(BasePopup popup)
+            var prefab = popupPrefabs.Find(p => p is TPopup);
+            if (prefab == null)
             {
-                popup.Closed -= PopupOnClosed;
-                Destroy(popup.gameObject);
-                Debug.Log(" Destroy(popup.gameObject);");
+                Debug.LogError($"Popup prefab not found for type {type}", this);
+                return null;
             }
+
+            var popup = Instantiate(prefab, popupsRoot);
+            popup.Init();
+            popup.Open();
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+
+            popup.Closed += OnPopupClosed;
+            activePopups.Add(type, popup);
+
+            return (TPopup)popup;
+        }
+
+       private void OnPopupClosed(BasePopup popup)
+        {
+            var type = popup.GetType();
+
+            popup.Closed -= OnPopupClosed;
+            activePopups.Remove(type);
+
+            PopupClosed?.Invoke(popup);
+
+            Destroy(popup.gameObject);
         }
     }
 }

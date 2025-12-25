@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Game.Interfaces;
 using Sources.Code.Core.Singletones;
+using Sources.Code.Interfaces;
 
-namespace Game.Managers
+namespace Sources.Managers
 {
     public class InputManager : SingletonBehaviour<InputManager>, IInputManager
     {
@@ -20,6 +20,7 @@ namespace Game.Managers
 
         public bool LeftClickPressed { get; private set; }
         public bool RightClickPressed { get; private set; }
+        public bool CancelPressed { get; private set; }
 
         public void OnMove(InputAction.CallbackContext context)
         {            
@@ -46,6 +47,7 @@ namespace Game.Managers
         {
             if (context.performed) InteractPressed = true;
         }
+        
 
         public void OnGrab(InputAction.CallbackContext context)
         {
@@ -77,16 +79,97 @@ namespace Game.Managers
         {
             if (context.performed) RightClickPressed = true;
         }
+        public void OnCancel(InputAction.CallbackContext context)
+        {
+            if (context.performed) CancelPressed = true;
+        }
 
 
         private void LateUpdate()
         {
             JumpPressed = false;
+            CrouchPressed = false;
             InteractPressed = false;
             GrabPressed = false;
             ThrowPressed = false;
             LeftClickPressed = false;
             RightClickPressed = false;
+            CancelPressed = false;
         }
+
+
+        // ===== CONSUME METHODS =====
+
+        public bool ConsumeJump()
+        {
+            if (!JumpPressed)
+                return false;
+
+            JumpPressed = false;
+            return true;
+        }
+
+        public bool ConsumeCrouch()
+        {
+            if (!CrouchPressed)
+                return false;
+
+            CrouchPressed = false;
+            return true;
+        }
+
+        public bool ConsumeInteract()
+        {
+            if (!InteractPressed)
+                return false;
+
+            InteractPressed = false;
+            return true;
+        }
+
+        public bool ConsumeGrab()
+        {
+            if (!GrabPressed)
+                return false;
+
+            GrabPressed = false;
+            return true;
+        }
+
+        public bool ConsumeThrow()
+        {
+            if (!ThrowPressed)
+                return false;
+
+            ThrowPressed = false;
+            return true;
+        }
+
+        public bool ConsumeLeftClick()
+        {
+            if (!LeftClickPressed)
+                return false;
+
+            LeftClickPressed = false;
+            return true;
+        }
+
+        public bool ConsumeRightClick()
+        {
+            if (!RightClickPressed)
+                return false;
+
+            RightClickPressed = false;
+            return true;
+        }
+        public bool ConsumeCancel()
+        {
+            if (!CancelPressed)
+                return false;
+
+            CancelPressed = false;
+            return true;
+        }
+
     }
 }

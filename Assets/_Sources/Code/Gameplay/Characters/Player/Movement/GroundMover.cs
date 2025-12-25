@@ -1,5 +1,4 @@
-using System;
-using Game.Interfaces;
+using Sources.Code.Interfaces;
 using UnityEngine;
 
 namespace Game.Characters 
@@ -143,6 +142,16 @@ namespace Game.Characters
             }
 
             return false;
+        }
+        public float CurrentSpeed
+        {
+            get
+            {
+                if (player == null) return 0f;
+                Vector3 v = player.velocity;
+                v.y = 0f;
+                return v.magnitude;
+            }
         }
     }
 }

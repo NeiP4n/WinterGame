@@ -783,8 +783,8 @@ GameObject:
   - component: {fileID: 4704388417801685995}
   - component: {fileID: 5976265238155571695}
   - component: {fileID: 8388512701590746661}
-  - component: {fileID: 5038300569674247548}
   - component: {fileID: 6812216496209665931}
+  - component: {fileID: 6563761400491337890}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -910,28 +910,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &5038300569674247548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2424428997579557359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77d5bd2c78f4799479e3d9a1563437d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.Controllers.CameraController
-  headBone: {fileID: 5950395390381542799}
-  bodyTransform: {fileID: 3288138747904678882}
-  cam: {fileID: 4704388417801685995}
-  offset: {x: 0, y: 0.2, z: 0}
-  amplitude: 0.05
-  frequency: 7
-  mouseSensitivity: 0.2
-  maxLookUp: 60
-  minLookDown: -60
-  rotationSmoothTime: 0.05
 --- !u!114 &6812216496209665931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -955,6 +933,22 @@ MonoBehaviour:
   _PostProcessShaderAccurate: {fileID: 4800000, guid: 2ebed186567d3c244a87538744a62920, type: 3}
   _PixelationShader: {fileID: 4800000, guid: f2da0e2a14a532548b5db043244b3df1, type: 3}
   _InterlacingShader: {fileID: 4800000, guid: 03ebd34214b41ef459d7ee6753b062be, type: 3}
+--- !u!114 &6563761400491337890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2424428997579557359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f068eb55175b624ebb6400d52a22322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
+  interactDistance: 3
+  interactMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &2613503137965348220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1029,7 +1023,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3288138747904678882}
-  - component: {fileID: 8881657092720787864}
   - component: {fileID: 1532875051692542936}
   - component: {fileID: 5574165222455596434}
   m_Layer: 0
@@ -1056,30 +1049,9 @@ Transform:
   - {fileID: 2326072988718013277}
   - {fileID: 7057565068963101558}
   - {fileID: 6333234771436758526}
+  - {fileID: 932258740602856653}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &8881657092720787864
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2804054171173388632}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 79494f8fd8029b547a98ecb96007055d, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &1532875051692542936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1231,7 +1203,7 @@ MonoBehaviour:
     AnchorJointLimits: 0
     FallOnZeroAnchor: 1
     BaseTransform: {fileID: 0}
-    Mecanim: {fileID: 8881657092720787864}
+    Mecanim: {fileID: 0}
     RagdollLogic: 0
     RagdollSizeMultiplier: 1
     RagdollThicknessMultiplier: 1
@@ -2839,6 +2811,37 @@ Transform:
   m_Children:
   - {fileID: 3225649664987522627}
   m_Father: {fileID: 8536508986309936062}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4968762679510187646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 932258740602856653}
+  m_Layer: 0
+  m_Name: FOG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &932258740602856653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4968762679510187646}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3288138747904678882}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5007680054327791914
 GameObject:

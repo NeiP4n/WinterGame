@@ -1,48 +1,46 @@
 using UnityEngine;
 using TMPro;
-using Game.Interfaces;
+using Sources.Code.Interfaces;
 
 namespace Game.UI
 {
-    public class UIInteract : MonoBehaviour, IUIInteract
+    public class UIInteract : MonoBehaviour
     {
-        [Header("Interact UI Elements")]
         [SerializeField] private GameObject root;
         [SerializeField] private TMP_Text interactText;
-        private IInteractable interactable;
+        [SerializeField] private string defaultMessage = "Press E to interact";
+        private PlayerInteract _interact;
+        public void Showfocus() => Show(defaultMessage);
+        public void Hidefocus() => Hide();
+        public void Init(PlayerInteract interact)
+        {
+            _interact = interact;
+            interact.OnFocusChanged += HandleFocus;
+            Hide();
+        }
 
-        [Header("Settings")]
-        public string message = "Press E to interact";
-
-        public void Init(IInteractable interactable)
+        private void HandleFocus(IInteractable interactable)
         {
             if (interactable != null)
-            {
-                interactable.OnItemDetected += HandleItemDetected;
-            }
-
-            HideTextMessage();
+                Show(defaultMessage);
+            else
+                Hide();
         }
 
-        private void HandleItemDetected(bool show)
+        private void Show(string message)
         {
-            if (show) ShowTextMessage();
-            else HideTextMessage();
+            root.SetActive(true);
+            interactText.text = message;
         }
 
-        public void ShowTextMessage()
+        private void Hide()
         {
-            if (root != null)
-                root.SetActive(true);
-
-            if (interactText != null)
-                interactText.text = message;
+            root.SetActive(false);
         }
-
-        public void HideTextMessage()
+        private void OnDestroy()
         {
-            if (root != null)
-                root.SetActive(false);
+            if (_interact != null)
+                _interact.OnFocusChanged -= HandleFocus;
         }
     }
 }

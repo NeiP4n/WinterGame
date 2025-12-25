@@ -1,13 +1,10 @@
-using UnityEngine;
-
 namespace Game.Controllers
 {
     public class SineMotion
     {
-        public Vector3 GetSineOffset(float amplitude, float frequency, float time)
+        public float GetSine(float time, float frequency)
         {
-            float sineY = Mathf.Sin(time * frequency) * amplitude;
-            return new Vector3(0, sineY, 0);
+            return UnityEngine.Mathf.Sin(time * frequency);
         }
     }
 }

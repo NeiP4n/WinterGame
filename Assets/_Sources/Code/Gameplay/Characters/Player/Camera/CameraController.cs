@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Game.Interfaces;
+using Sources.Code.Interfaces;
 
 namespace Game.Controllers
 {
@@ -40,6 +41,8 @@ namespace Game.Controllers
                 frequency
             );
 
+            _follow.SetInputProvider(_inputProvider);
+
             _rotation = new CameraRotation(
                 mouseSensitivity,
                 maxLookUp,
@@ -47,14 +50,12 @@ namespace Game.Controllers
                 rotationSmoothTime
             );
 
-            _follow.Init(sineMotion);
-            _follow.SetInputProvider(_inputProvider);
-
             _rotation.Init(cam.transform, bodyTransform);
             _rotation.SetInputProvider(_inputProvider);
 
             cam.enabled = true;
         }
+
 
         private void LateUpdate()
         {

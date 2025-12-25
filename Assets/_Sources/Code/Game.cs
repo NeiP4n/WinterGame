@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Game.Interfaces;
 using Game.Managers;
 using Sources.Code.Configs;
 using Sources.Code.Gameplay.GameSaves;
+using Sources.Code.Interfaces;
 using Sources.Code.UI;
+using Sources.Managers;
 using UnityEngine;
 
 namespace Sources.Code.Gameplay
@@ -28,6 +29,8 @@ namespace Sources.Code.Gameplay
         private Level _levelInstance;
         private PlayerCharacter _playerCharacter;
         private bool _isWin;
+        private bool _cursorShouldBeLocked = true;
+
 
         public int CurrentLevelNumber
         {
@@ -50,14 +53,14 @@ namespace Sources.Code.Gameplay
 
         public void ThisUpdate()
         {
-            if (_screenSwitcher.ScreenIsActive<GameScreen>(out _) && Input.GetKeyDown(KeyCode.Escape))
-            {
-                ReleaseCursor();
+            // if (_screenSwitcher.ScreenIsActive<GameScreen>(out _) && Input.GetKeyDown(KeyCode.Escape))
+            // {
+            //     ReleaseCursor();
 
-                var menu = _screenSwitcher.ShowScreen<MenuScreen>();
-                menu.Init(_main);
-                return;
-            }
+            //     var menu = _screenSwitcher.ShowScreen<MenuScreen>();
+            //     menu.Init(_main);
+            //     return;
+            // }
 
             foreach (var mono in _monoBehaviours)
                 mono.Tick();
@@ -67,6 +70,7 @@ namespace Sources.Code.Gameplay
         public void StartGame()
         {
             _popupSwitcher.Init();
+            _popupSwitcher.PopupClosed += OnPopupClosed;
 
             _gameTokenSource = new CancellationTokenSource();
             _gameToken = _gameTokenSource.Token;
@@ -75,15 +79,23 @@ namespace Sources.Code.Gameplay
             int index = CurrentLevelNumber - 1;
             _levelInstance = Object.Instantiate(_levelsConfig.GetLevelPrefabByIndex(index));
 
+#region Player Setup
             _playerCharacter = _levelInstance.PlayerCharacter;
             _playerCharacter.Construct(_inputManager);
+
+            var interact = _playerCharacter.Interact;
+
+            var gameScreen = _screenSwitcher.ShowScreen<GameScreen>();
+            gameScreen.Init();
+
+            var uiInteract = gameScreen.GetUIInteract();
+            uiInteract.Init(interact);
+#endregion
 
             if (_playerCharacter is IMonoBehaviour mono)
                 _monoBehaviours.Add(mono);
             
             ApplyGameplayCursor();
-
-            _screenSwitcher.ShowScreen<GameScreen>().Init();
         }
 
 
@@ -91,6 +103,7 @@ namespace Sources.Code.Gameplay
 
         public void Dispose()
         {
+            _popupSwitcher.PopupClosed -= OnPopupClosed;
             ClearLevel();
 
             if (_gameTokenSource != null)
@@ -113,13 +126,12 @@ namespace Sources.Code.Gameplay
             if (_isWin)
                 return;
 
-            _gameEventScreen = _popupSwitcher.GetPopup<GameEventPopup>();
-            _gameEventScreen.Init();
+            _gameEventScreen = _popupSwitcher.Show<GameEventPopup>();
             _gameEventScreen.ShowDefeat();
 
             await UniTask.Delay(1500, cancellationToken: _gameToken);
 
-            _gameEventScreen.Destroy();
+            _gameEventScreen.Close();
             RestartLevel();
         }
 
@@ -132,7 +144,7 @@ namespace Sources.Code.Gameplay
 
             if (_gameEventScreen != null)
             {
-                _gameEventScreen.Destroy();
+                _gameEventScreen.Close();
                 _gameEventScreen = null;
             }
 
@@ -151,6 +163,11 @@ namespace Sources.Code.Gameplay
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+        }
+        private void OnPopupClosed(BasePopup popup)
+        {
+            popup.Closed -= OnPopupClosed;
+            ApplyGameplayCursor();
         }
     }
 }

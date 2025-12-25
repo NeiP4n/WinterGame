@@ -1,5 +1,5 @@
 using System;
-using Game.Interfaces;
+using Sources.Code.Interfaces;
 using UnityEngine;
 
 public class PlayerStamina : MonoBehaviour, IPlayerStamina

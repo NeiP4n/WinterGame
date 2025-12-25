@@ -83,7 +83,6 @@ GameObject:
   - component: {fileID: 7394465998581799682}
   - component: {fileID: 8462739853986419723}
   - component: {fileID: 5922334670955592014}
-  - component: {fileID: 2830655722532887567}
   m_Layer: 5
   m_Name: ScreenSwitcher
   m_TagString: Untagged
@@ -191,18 +190,3 @@ MonoBehaviour:
   _screensPrefabs:
   - {fileID: 3606007701830151748, guid: 19af571d6452f574a85f54956c657734, type: 3}
   - {fileID: -544657744236190532, guid: 5831c391f9cbda347b31f08d57a2be5a, type: 3}
---- !u!114 &2830655722532887567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4514512988143518061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab78728747a74bf6ab300089ed0f108d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sources.Code.UI.PopupSwitcher
-  _transform: {fileID: 500084711770685695}
-  _popupsPrefabs:
-  - {fileID: 6906156726720887408, guid: fdd589e63265c3517885f6dab060841d, type: 3}

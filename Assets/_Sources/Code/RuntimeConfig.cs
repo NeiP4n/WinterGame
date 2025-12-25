@@ -10,6 +10,7 @@ public static class RuntimeConfig
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
         QualitySettings.lodBias = 3.0f;
+        Screen.SetResolution(320, 240, true);
 
         QualitySettings.antiAliasing = 0;
         QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;

@@ -1,7 +1,7 @@
 using UnityEngine;
 using MonsterLove.StateMachine;
-using Game.Interfaces;
 using Game.Characters;
+using Sources.Code.Interfaces;
 
 namespace Game.States
 {
@@ -63,7 +63,7 @@ namespace Game.States
             else if (isMoving && isRunning && fsm.State != States.Run)
                 fsm.ChangeState(States.Run);
 
-            if (_input.JumpPressed && _mover.IsGrounded)
+            if (_input.ConsumeJump() && _mover.IsGrounded)
                 fsm.ChangeState(States.Jumped);
         }
 
