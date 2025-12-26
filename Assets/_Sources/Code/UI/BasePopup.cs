@@ -1,4 +1,5 @@
 using System;
+using Sources.Managers;
 using UnityEngine;
 
 namespace Sources.Code.UI
@@ -54,9 +55,13 @@ namespace Sources.Code.UI
 
         protected virtual void Update()
         {
-            if (closeOnEsc && isOpen && Input.GetKeyDown(KeyCode.Q))
+            if (!isOpen || !closeOnEsc)
+                return;
+
+            if (InputManager.Instance.ConsumeCancel())
                 Close();
         }
+
 
         protected void HideInstant()
         {

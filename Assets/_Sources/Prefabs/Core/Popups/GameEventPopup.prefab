@@ -202,7 +202,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Sources.Code.UI.GameEventPopup
   canvasGroup: {fileID: 5594438561443382249}
   pauseGame: 1
-  unlockCursor: 1
   closeOnEsc: 1
   _canvasGroup: {fileID: 5594438561443382249}
   _image: {fileID: 5516410158300406598}

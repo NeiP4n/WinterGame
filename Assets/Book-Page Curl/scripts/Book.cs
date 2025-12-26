@@ -145,7 +145,11 @@ public class Book : MonoBehaviour {
     }
     public void UpdateBook()
     {
-        f = Vector3.Lerp(f, transformPoint(Input.mousePosition), Time.deltaTime * 10);
+        f = Vector3.Lerp(
+            f,
+            transformPoint(Input.mousePosition),
+            Time.unscaledDeltaTime * 10
+        );
         if (mode == FlipMode.RightToLeft)
             UpdateBookRTLToPoint(f);
         else
@@ -440,7 +444,7 @@ public class Book : MonoBehaviour {
             else
                 UpdateBookLTRToPoint(f + displacement);
 
-            yield return new WaitForSeconds(0.025f);
+            yield return new WaitForSecondsRealtime(0.025f);
         }
         if (onFinish != null)
             onFinish();
