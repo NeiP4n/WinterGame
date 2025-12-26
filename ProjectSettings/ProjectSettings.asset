@@ -841,7 +841,7 @@ PlayerSettings:
     PS5: DOTWEEN
     QNX: DOTWEEN
     ReservedCFE: DOTWEEN
-    Standalone: DOTWEEN
+    Standalone: DOTWEEN;GRIFFIN;GRIFFIN_2020;GRIFFIN_URP
     VisionOS: DOTWEEN
     WebGL: DOTWEEN;GRIFFIN;GRIFFIN_2020;GRIFFIN_URP
     Windows Store Apps: DOTWEEN
