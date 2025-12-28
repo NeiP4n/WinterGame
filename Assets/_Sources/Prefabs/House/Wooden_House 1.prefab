@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 6054043809756201795}
   - component: {fileID: 6882736645057224773}
   - component: {fileID: 5849844568677221705}
+  - component: {fileID: 4733916191793349128}
   m_Layer: 0
   m_Name: House_1_Roof
   m_TagString: Untagged
@@ -254,6 +255,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4733916191793349128
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4184061016843259873}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 17.19673, y: 0, z: 14.118219}
+  m_Center: {x: 9.626148, y: 17.622599, z: 5.925425}
 --- !u!1 &5029043815024453306
 GameObject:
   m_ObjectHideFlags: 0
