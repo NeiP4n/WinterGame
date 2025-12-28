@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 1915679099937631444}
   - component: {fileID: 460611303400156091}
   - component: {fileID: 6917454225472908243}
+  - component: {fileID: 1955792268802511199}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -211,6 +212,23 @@ MonoBehaviour:
   maxLookUp: 60
   minLookDown: -60
   rotationSmoothTime: 0.05
+--- !u!114 &1955792268802511199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3022769541804050245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ac605155567ea64387caf6dee67cae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SnowFootprints
+  footprintPrefab: {fileID: 34369186647279708, guid: d3cbc38ebaaadda46ad30131bee569a3, type: 3}
+  stepDistance: 0.6
+  rayDistance: 1.5
+  yOffset: 0.02
+  maxFootprints: 120
 --- !u!1 &3095080631642509981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,9 +1163,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2804054171173388632, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1721053519116052317}
-    - targetCorrespondingSourceObject: {fileID: 8619107133327952778, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6559197808616434643}
   m_SourcePrefab: {fileID: 100100000, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
 --- !u!4 &111952718692481130 stripped
 Transform:
@@ -1239,39 +1254,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8536508986309936062, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
   m_PrefabInstance: {fileID: 7657570663314637286}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2150503696371157612 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8619107133327952778, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
-  m_PrefabInstance: {fileID: 7657570663314637286}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6559197808616434643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2150503696371157612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad9ce081c1f68f54f84a6d2f3af82fad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Sources.Code.Gameplay.Grab.GrabInteractor
-  jointAnchorDistance: 2.5
-  throwingForce: 10
-  drag: 10
-  angularDrag: 5
-  damper: 4
-  spring: 100
-  massScale: 1
-  breakingDistance: 3
 --- !u!4 &2213796966643869637 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8430135347110176291, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
-  m_PrefabInstance: {fileID: 7657570663314637286}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2378439228581429881 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5423686428605350815, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
   m_PrefabInstance: {fileID: 7657570663314637286}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &2473288274457805938 stripped
@@ -1394,11 +1379,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2475388609030625909, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
   m_PrefabInstance: {fileID: 7657570663314637286}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5333098676342053563 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2326072988718013277, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
-  m_PrefabInstance: {fileID: 7657570663314637286}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5406432239980273094 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2396661055086140448, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
@@ -1434,8 +1414,8 @@ MonoBehaviour:
   boneColor: {r: 0, g: 0, b: 1, a: 0.5}
   m_Transforms:
   - {fileID: 5180537288125061636}
-  - {fileID: 2378439228581429881}
-  - {fileID: 5333098676342053563}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 843481531968289424}
   - {fileID: 7199609438706418668}
   - {fileID: 2544794164116183858}
