@@ -1,8 +1,9 @@
 using UnityEngine;
 using TMPro;
 using Sources.Code.Interfaces;
+using Sources.Code.Gameplay.Interaction;
 
-namespace Game.UI
+namespace Sources.UI
 {
     public class UIInteract : MonoBehaviour
     {

@@ -122,9 +122,7 @@ GameObject:
   - component: {fileID: 219572785863282867}
   - component: {fileID: 1915679099937631444}
   - component: {fileID: 460611303400156091}
-  - component: {fileID: 742062198066037426}
   - component: {fileID: 6917454225472908243}
-  - component: {fileID: 7964541735239890472}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -189,24 +187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Game.Managers.PlayerCharacter
   maxHealth: 0
   _mover: {fileID: 1915679099937631444}
-  _stamina: {fileID: 742062198066037426}
-  _interact: {fileID: 7964541735239890472}
+  _interact: {fileID: 8938498611274443031}
   _camera: {fileID: 6917454225472908243}
---- !u!114 &742062198066037426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3022769541804050245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7617d94ec797dd04d8b00609dd43011a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerStamina
-  maxStamina: 100
-  staminaRegenRate: 5
-  regenDelay: 2
 --- !u!114 &6917454225472908243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,23 +211,6 @@ MonoBehaviour:
   maxLookUp: 60
   minLookDown: -60
   rotationSmoothTime: 0.05
---- !u!114 &7964541735239890472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3022769541804050245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f068eb55175b624ebb6400d52a22322, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
-  playerCamera: {fileID: 3101994590230170125}
-  interactDistance: 3
-  interactMask:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!1 &3095080631642509981
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,7 +223,6 @@ GameObject:
   - component: {fileID: 2995425187755324995}
   - component: {fileID: 5603563844680921236}
   - component: {fileID: 1171074837333887481}
-  - component: {fileID: 8602587871340162943}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -350,19 +314,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8602587871340162943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3095080631642509981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4a59a47b513a8248a5d53e840f39460, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Game.UI.PlayerStaminaUI
-  staminaSlider: {fileID: 1765315871014475896}
 --- !u!1 &3850176788554176286
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,6 +1145,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2804054171173388632, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1721053519116052317}
+    - targetCorrespondingSourceObject: {fileID: 8619107133327952778, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6559197808616434643}
   m_SourcePrefab: {fileID: 100100000, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
 --- !u!4 &111952718692481130 stripped
 Transform:
@@ -1285,6 +1239,31 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8536508986309936062, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
   m_PrefabInstance: {fileID: 7657570663314637286}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2150503696371157612 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8619107133327952778, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
+  m_PrefabInstance: {fileID: 7657570663314637286}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6559197808616434643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2150503696371157612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad9ce081c1f68f54f84a6d2f3af82fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sources.Code.Gameplay.Grab.GrabInteractor
+  jointAnchorDistance: 2.5
+  throwingForce: 10
+  drag: 10
+  angularDrag: 5
+  damper: 4
+  spring: 100
+  massScale: 1
+  breakingDistance: 3
 --- !u!4 &2213796966643869637 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8430135347110176291, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
@@ -1649,3 +1628,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1311390817397295473, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
   m_PrefabInstance: {fileID: 7657570663314637286}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8938498611274443031 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1607445123179194609, guid: 07380d9eb3c703d42947ed606810548a, type: 3}
+  m_PrefabInstance: {fileID: 7657570663314637286}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f068eb55175b624ebb6400d52a22322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sources.Code.Gameplay.Interaction.PlayerInteract

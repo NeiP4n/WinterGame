@@ -1,4 +1,5 @@
 using System;
+using Sources.Code.Gameplay.Interaction;
 using UnityEngine;
 
 namespace Sources.Code.Interfaces
@@ -61,5 +62,9 @@ namespace Sources.Code.Interfaces
         void Interact();
         bool CanInteract { get; }
 
+    }
+    public interface IInteractableContext
+    {
+        void Interact(PlayerInteract playerInteract);
     }
 }

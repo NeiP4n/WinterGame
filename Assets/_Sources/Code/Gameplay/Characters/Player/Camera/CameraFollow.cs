@@ -1,7 +1,7 @@
 using Game.Interfaces;
 using UnityEngine;
 
-namespace Game.Controllers
+namespace Sources.Controllers
 {
     public class CameraFollow
     {

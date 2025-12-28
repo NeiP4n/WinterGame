@@ -29,8 +29,6 @@ namespace Sources.Code.Gameplay
         private Level _levelInstance;
         private PlayerCharacter _playerCharacter;
         private bool _isWin;
-        private bool _cursorShouldBeLocked = true;
-
 
         public int CurrentLevelNumber
         {
@@ -82,6 +80,8 @@ namespace Sources.Code.Gameplay
 #region Player Setup
             _playerCharacter = _levelInstance.PlayerCharacter;
             _playerCharacter.Construct(_inputManager);
+
+            _playerCharacter.transform.position = _levelInstance.CharacterSpawnPosition;
 
             var interact = _playerCharacter.Interact;
 

@@ -2,7 +2,7 @@
 using Game.Interfaces;
 using Sources.Code.Interfaces;
 
-namespace Game.Controllers
+namespace Sources.Controllers
 {
     public class CameraController : MonoBehaviour
     {

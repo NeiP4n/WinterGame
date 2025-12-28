@@ -13,7 +13,6 @@ namespace Sources.Managers
         public bool JumpPressed { get; private set; }
         public bool CrouchPressed { get; private set; }
         public bool InteractPressed { get; private set; }
-        public bool GrabPressed { get; private set; }
         public bool ThrowPressed { get; private set; }
         public bool SprintPressed { get; private set; }
         public bool RagdollPressed { get; private set; }
@@ -47,23 +46,13 @@ namespace Sources.Managers
         {
             if (context.performed) InteractPressed = true;
         }
-        
-
-        public void OnGrab(InputAction.CallbackContext context)
-        {
-            if (context.performed)
-            {
-                GrabPressed = true;
-                Debug.Log("Grab pressed (OnGrab performed)");
-            }
-        }
+    
 
         public void OnThrow(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
                 ThrowPressed = true;
-                Debug.Log("Throw pressed (OnThrow performed)");
             }
         }
 
@@ -90,7 +79,6 @@ namespace Sources.Managers
             JumpPressed = false;
             CrouchPressed = false;
             InteractPressed = false;
-            GrabPressed = false;
             ThrowPressed = false;
             LeftClickPressed = false;
             RightClickPressed = false;
@@ -124,15 +112,6 @@ namespace Sources.Managers
                 return false;
 
             InteractPressed = false;
-            return true;
-        }
-
-        public bool ConsumeGrab()
-        {
-            if (!GrabPressed)
-                return false;
-
-            GrabPressed = false;
             return true;
         }
 

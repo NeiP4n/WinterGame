@@ -1,7 +1,7 @@
 using Sources.Code.Interfaces;
 using UnityEngine;
 
-namespace Game.Characters 
+namespace Sources.Characters 
 {
     public class GroundMover : MonoBehaviour
     {
@@ -27,14 +27,12 @@ namespace Game.Characters
         public bool IsGrounded { get; private set; }
 
         private IInputManager _input;
-        private PlayerStamina _stamina;
 
         public void SetActive(bool value) => active = value;
 
-        public void Construct(IInputManager input, PlayerStamina stamina)
+        public void Construct(IInputManager input)
         {
             _input = input;
-            _stamina = stamina;
         }
 
         void Update()
@@ -43,13 +41,12 @@ namespace Game.Characters
 
             DoMove();        
             ApplyGravity();   
-            _stamina.RegenStamina(); 
         }
 
         public void DoMove()
         {            
             Vector2 input = new Vector2(_input.Horizontal, _input.Vertical);
-            bool running = _input.SprintPressed && _stamina.CurrentStamina > 0f;
+            bool running = _input.SprintPressed;
             bool isMoving = input.sqrMagnitude > 0.01f;
 
             MovePlayer(running, input);
@@ -58,7 +55,6 @@ namespace Game.Characters
             {
                 float speedFactor = Mathf.Clamp01(input.magnitude); 
                 float drainAmount = staminaDrainRate * speedFactor * Time.deltaTime;
-                _stamina.UseStamina(drainAmount);
             }
         }
 

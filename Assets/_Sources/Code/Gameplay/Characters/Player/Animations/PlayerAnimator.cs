@@ -1,6 +1,6 @@
 using UnityEngine;
 using MonsterLove.StateMachine;
-using Game.Characters;
+using Sources.Characters;
 using Sources.Code.Interfaces;
 
 namespace Game.States

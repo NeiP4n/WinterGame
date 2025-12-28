@@ -11,7 +11,6 @@ namespace Sources.Code.Interfaces
         bool ConsumeJump();
         bool ConsumeCrouch();
         bool ConsumeInteract();
-        bool ConsumeGrab();
         bool ConsumeThrow();
         bool ConsumeLeftClick();
         bool ConsumeRightClick();

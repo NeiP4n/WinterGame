@@ -1,15 +1,15 @@
 using UnityEngine;
-using Game.Characters;
-using Game.Controllers;
+using Sources.Characters;
+using Sources.Controllers;
 using Game.Gameplay.Characters;
 using Sources.Code.Interfaces;
+using Sources.Code.Gameplay.Interaction;
 
 namespace Game.Managers
 {
     public class PlayerCharacter : Entity
     {
         [SerializeField] private GroundMover _mover;
-        [SerializeField] private PlayerStamina _stamina;
         [SerializeField] private PlayerInteract _interact;
 
         [Header("Camera")]
@@ -19,7 +19,7 @@ namespace Game.Managers
 
         public void Construct(IInputManager input)
         {
-            _mover.Construct(input, _stamina);
+            _mover.Construct(input);
             _camera.Construct(input);
             _interact.Construct(input);
         }

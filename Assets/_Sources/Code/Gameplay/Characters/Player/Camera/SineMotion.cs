@@ -1,4 +1,4 @@
-namespace Game.Controllers
+namespace Sources.Controllers
 {
     public class SineMotion
     {

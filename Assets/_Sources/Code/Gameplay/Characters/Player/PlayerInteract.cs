@@ -2,60 +2,60 @@ using UnityEngine;
 using System;
 using Sources.Code.Interfaces;
 
-public class PlayerInteract : MonoBehaviour
+namespace Sources.Code.Gameplay.Interaction
 {
-    [SerializeField] private Camera playerCamera;
-    private IInputManager input;
-
-    public float interactDistance = 3f;
-    [SerializeField] private LayerMask interactMask;
-
-    private IInteractable current;
-    public event Action<IInteractable> OnFocusChanged;
-
-    private void Awake()
+    public class PlayerInteract : MonoBehaviour
     {
-        playerCamera = GetComponentInChildren<Camera>();
-    }
+        [SerializeField] private Camera playerCamera;
+        [SerializeField] private float interactDistance = 3f;
+        [SerializeField] private LayerMask interactMask;
 
-    public void Construct(IInputManager inputManager)
-    {
-        input = inputManager;
-    }
+        private IInputManager input;
+        private IInteractable current;
 
-    private void Update()
-    {
-        UpdateInteract();
-    }
+        public event Action<IInteractable> OnFocusChanged;
 
-    public void UpdateInteract()
-    {
-        if (input == null)
-            return;
 
-        UpdateDetection();
-
-        if (input.ConsumeInteract() && current != null && current.CanInteract)
+        public void Construct(IInputManager inputManager)
         {
-            current.Interact();
-        }
-    }
-
-    private void UpdateDetection()
-    {
-        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-
-        IInteractable detected = null;
-
-        if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactMask))
-        {
-            detected = hit.collider.GetComponentInParent<IInteractable>();
+            input = inputManager;
         }
 
-        if (detected != current)
+        public void UpdateInteract()
         {
-            current = detected;
-            OnFocusChanged?.Invoke(current);
+            if (input == null)
+                return;
+
+            UpdateDetection();
+
+            if (input.ConsumeInteract() && current != null && current.CanInteract)
+            {
+                if (current is IInteractableContext context)
+                    context.Interact(this);
+                else
+                    current.Interact();
+            }
+        }
+
+        private void UpdateDetection()
+        {
+            Ray ray = new Ray(
+                playerCamera.transform.position,
+                playerCamera.transform.forward
+            );
+
+            IInteractable detected = null;
+
+            if (Physics.Raycast(ray, out RaycastHit hit, interactDistance, interactMask))
+            {
+                detected = hit.collider.GetComponentInParent<IInteractable>();
+            }
+
+            if (detected != current)
+            {
+                current = detected;
+                OnFocusChanged?.Invoke(current);
+            }
         }
     }
 }
