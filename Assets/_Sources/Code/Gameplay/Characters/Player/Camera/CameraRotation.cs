@@ -5,7 +5,9 @@ namespace Sources.Controllers
 {
     public class CameraRotation
     {
+        private float baseSensitivity;
         private float sensitivity;
+        private bool rotationBlocked;
         private float maxLookUp;
         private float minLookDown;
         private float smoothTime;
@@ -22,10 +24,26 @@ namespace Sources.Controllers
 
         public CameraRotation(float sensitivity, float maxLookUp, float minLookDown, float smoothTime)
         {
-            this.sensitivity  = sensitivity;
-            this.maxLookUp    = maxLookUp;
-            this.minLookDown  = minLookDown;
-            this.smoothTime   = smoothTime;
+            this.baseSensitivity = sensitivity;
+            this.sensitivity = sensitivity;
+            this.maxLookUp = maxLookUp;
+            this.minLookDown = minLookDown;
+            this.smoothTime = smoothTime;
+        }
+
+        public void SetSensitivityMultiplier(float multiplier)
+        {
+            sensitivity = baseSensitivity * multiplier;
+        }
+
+        public void SetRotationBlocked(bool blocked)
+        {
+            rotationBlocked = blocked;
+        }
+
+        public void ResetSensitivity()
+        {
+            sensitivity = baseSensitivity;
         }
 
         public void Init(Transform cam, Transform body)
@@ -39,7 +57,7 @@ namespace Sources.Controllers
 
         public void UpdateRotation(Transform cam, Transform body)
         {
-            if (inputProvider == null)
+            if (inputProvider == null || rotationBlocked)
                 return;
 
             Vector2 look = inputProvider.GetLookDelta() * sensitivity;
@@ -51,7 +69,7 @@ namespace Sources.Controllers
             currentY = Mathf.SmoothDamp(currentY, targetY, ref velY, smoothTime);
 
             cam.localRotation = Quaternion.Euler(currentY, 0, 0);
-            body.rotation     = Quaternion.Euler(0, currentX, 0);
+            body.rotation = Quaternion.Euler(0, currentX, 0);
         }
     }
 }

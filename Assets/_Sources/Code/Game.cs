@@ -8,6 +8,7 @@ using Sources.Code.Interfaces;
 using Sources.Code.UI;
 using Sources.Managers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Sources.Code.Gameplay
 {
@@ -29,6 +30,7 @@ namespace Sources.Code.Gameplay
         private Level _levelInstance;
         private PlayerCharacter _playerCharacter;
         private bool _isWin;
+        private GameFlowConfig _gameFlowConfig => GameFlowConfig.Instance;
 
         public int CurrentLevelNumber
         {
@@ -99,7 +101,34 @@ namespace Sources.Code.Gameplay
         }
 
 
+        public async void LoadingGame()
+        {
+            if (!_gameFlowConfig.EnableLoadingScreen)
+            {
+                RunNextStepAfterLoading();
+                return;
+            }
 
+            var loadingScreen = _screenSwitcher.ShowScreen<LoadingScreen>();
+            loadingScreen.Show();
+
+            await UniTask.Yield();
+
+            RunNextStepAfterLoading();
+
+            loadingScreen.Hide();
+        }
+
+        private void RunNextStepAfterLoading()
+        {
+            if (_gameFlowConfig.EnableCutscene)
+            {
+                GameFlow.StartGameplayAfterSceneLoad = true;
+                SceneManager.LoadScene("Cutscene");
+                return;
+            }
+            StartGame();
+        }
 
         public void Dispose()
         {

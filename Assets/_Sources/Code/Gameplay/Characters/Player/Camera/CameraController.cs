@@ -12,58 +12,109 @@ namespace Sources.Controllers
         [SerializeField] private Camera cam;
         [SerializeField] private SineMotion sineMotion;
 
-        [Header("Follow Settings")]
-        [SerializeField] private Vector3 offset = new Vector3(0f, 0.2f, 0f);
+        [Header("Follow")]
+        [SerializeField] private Vector3 offset = new(0f, 0.2f, 0f);
         [SerializeField] private float amplitude = 0.05f;
         [SerializeField] private float frequency = 7f;
 
-        [Header("Rotation Settings")]
+        [Header("Rotation")]
         [SerializeField] private float mouseSensitivity = 2f;
         [SerializeField] private float maxLookUp = 80f;
         [SerializeField] private float minLookDown = -80f;
         [SerializeField] private float rotationSmoothTime = 0.05f;
 
-        private IInputManager _input;
-        private ICameraInputProvider _inputProvider;
+        private IInputManager input;
+        private ICameraInputProvider inputProvider;
 
-        private CameraFollow _follow;
-        private CameraRotation _rotation;
+        private CameraFollow follow;
+        private CameraRotation rotation;
+
+        private bool shakeEnabled;
+        private float shakeIntensity;
+        private float shakeTime;
+
+        private float baseFov;
+        private Vector3 baseLocalPos;
 
         public void Construct(IInputManager input)
         {
-            _input = input;
-            _inputProvider = new MouseInputProvider(_input);
+            this.input = input;
+            inputProvider = new MouseInputProvider(input);
 
-            _follow = new CameraFollow(
+            baseFov = cam.fieldOfView;
+            baseLocalPos = cam.transform.localPosition;
+
+            follow = new CameraFollow(
                 headBone,
                 offset,
                 amplitude,
                 frequency
             );
+            follow.SetInputProvider(inputProvider);
 
-            _follow.SetInputProvider(_inputProvider);
-
-            _rotation = new CameraRotation(
+            rotation = new CameraRotation(
                 mouseSensitivity,
                 maxLookUp,
                 minLookDown,
                 rotationSmoothTime
             );
-
-            _rotation.Init(cam.transform, bodyTransform);
-            _rotation.SetInputProvider(_inputProvider);
+            rotation.Init(cam.transform, bodyTransform);
+            rotation.SetInputProvider(inputProvider);
 
             cam.enabled = true;
         }
 
+        public void Apply(CameraSettings settings)
+        {
+            if (!settings.overrideCamera)
+                return;
+
+            rotation.SetRotationBlocked(settings.blockRotation);
+            rotation.SetSensitivityMultiplier(settings.sensitivityMultiplier);
+
+            if (settings.overrideFov)
+                cam.fieldOfView = settings.fov;
+
+            shakeEnabled = settings.cameraShake;
+            shakeIntensity = settings.shakeIntensity;
+        }
+
+        public void Restore()
+        {
+            rotation.SetRotationBlocked(false);
+            rotation.ResetSensitivity();
+
+            cam.fieldOfView = baseFov;
+            cam.transform.localPosition = baseLocalPos;
+
+            shakeEnabled = false;
+            shakeIntensity = 0f;
+            shakeTime = 0f;
+        }
 
         private void LateUpdate()
         {
-            if (_follow != null)
-                _follow.UpdateCameraPosition(cam.transform);
+            if (follow != null)
+                follow.UpdateCameraPosition(cam.transform);
 
-            if (_rotation != null)
-                _rotation.UpdateRotation(cam.transform, bodyTransform);
+            if (rotation != null)
+                rotation.UpdateRotation(cam.transform, bodyTransform);
+
+            ApplyShake();
+        }
+
+        private void ApplyShake()
+        {
+            if (!shakeEnabled || sineMotion == null)
+                return;
+
+            shakeTime += Time.deltaTime;
+
+            float shake =
+                sineMotion.GetSine(shakeTime, 25f) * shakeIntensity * 0.02f;
+
+            cam.transform.localPosition =
+                baseLocalPos + Vector3.up * shake;
         }
     }
 }

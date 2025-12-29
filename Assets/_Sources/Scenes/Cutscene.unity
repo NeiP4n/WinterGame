@@ -181,6 +181,20 @@ PlayableDirector:
     - 3e8500e866e061c43ba0e5c1ef2789aa: {fileID: 416790411}
     - 3118ab9f4bf586c4880b102c41c3a28f: {fileID: 519516934}
     - 758e2a4876dfde34286c005ee0bdd157: {fileID: 519516934}
+--- !u!114 &493920355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493920353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8df25e850875f049902e11d46af4123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CutsceneController
+  director: {fileID: 493920354}
+  gameSceneName: Game
 --- !u!1 &519516934 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9050273762804192468, guid: b74650cd5e495f24f8a34c846b3013fc, type: 3}
@@ -1154,6 +1168,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4500769234399770329, guid: b74650cd5e495f24f8a34c846b3013fc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 493920354}
+    - targetCorrespondingSourceObject: {fileID: 4500769234399770329, guid: b74650cd5e495f24f8a34c846b3013fc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 493920355}
     - targetCorrespondingSourceObject: {fileID: 4187051699726979407, guid: b74650cd5e495f24f8a34c846b3013fc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1537407615}

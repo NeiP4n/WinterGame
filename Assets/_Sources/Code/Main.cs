@@ -18,8 +18,6 @@ namespace Sources.Code
 
         private void Start()
         {
-            var inputManager = InputManager.Instance;
-
             // var audioSystem = AudioSystem.Instance;
             // audioSystem.Init();
             
@@ -30,9 +28,16 @@ namespace Sources.Code
             // particlesPlayer.Init(_particlesParent);
             
             _game = new Gameplay.Game(this);
-            
-            screenSwitcher.ShowScreen<MenuScreen>().Init(this);
-            
+
+            if (Gameplay.GameFlow.StartGameplayAfterSceneLoad)
+            {
+                Gameplay.GameFlow.StartGameplayAfterSceneLoad = false;
+                _game.StartGame();
+            }
+            else
+            {
+                screenSwitcher.ShowScreen<MenuScreen>().Init(this);
+            }         
         }
     
         private void Update()
@@ -59,8 +64,9 @@ namespace Sources.Code
 
         public void StartGame()
         {
-            _game.StartGame();
+            _game.LoadingGame();
         }
+        
     }
 
     public interface IMain
