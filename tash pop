@@ -1,0 +1,17 @@
+[33ma67e0b8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/level[m[33m)[m HEAD@{Mon Dec 29 16:56:19 2025}: checkout: moving from main to feature/level
+[33m4cebb52[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{Mon Dec 29 16:55:03 2025}: checkout: moving from feature/level to main
+[33ma67e0b8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/level[m[33m)[m HEAD@{Mon Dec 29 16:51:24 2025}: checkout: moving from feature/level to feature/level
+[33ma67e0b8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/level[m[33m)[m HEAD@{Mon Dec 29 16:48:31 2025}: checkout: moving from main to feature/level
+[33m4cebb52[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{Mon Dec 29 16:48:30 2025}: reset: moving to HEAD
+[33m4cebb52[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{Mon Dec 29 01:23:43 2025}: commit: upd2
+[33m8e34ada[m HEAD@{Sun Dec 28 22:14:11 2025}: pull --tags origin main: Fast-forward
+[33mbf57140[m HEAD@{Sun Dec 28 22:13:51 2025}: checkout: moving from main to main
+[33mbf57140[m HEAD@{Sun Dec 28 18:26:34 2025}: pull --tags origin main: Fast-forward
+[33ma67e0b8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/level[m[33m)[m HEAD@{Sun Dec 28 18:26:00 2025}: checkout: moving from feature/level to main
+[33ma67e0b8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/level[m[33m)[m HEAD@{Sun Dec 28 17:45:19 2025}: checkout: moving from main to feature/level
+[33ma67e0b8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/level[m[33m)[m HEAD@{Sun Dec 28 17:43:01 2025}: pull --tags origin main: Fast-forward
+[33m70f7f51[m HEAD@{Sun Dec 28 16:36:59 2025}: commit: upd1
+[33mbb42ff0[m HEAD@{Sun Dec 28 13:05:00 2025}: pull --tags origin main: Fast-forward
+[33m216da7c[m HEAD@{Fri Dec 26 20:53:15 2025}: commit: Update4
+[33m06ec87b[m HEAD@{Fri Dec 26 18:27:15 2025}: pull --tags origin main: Fast-forward
+[33m9c9d2cc[m HEAD@{Fri Dec 26 18:25:43 2025}: clone: from https://github.com/NeiP4n/WinterGame.git
