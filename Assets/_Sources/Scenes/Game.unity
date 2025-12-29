@@ -2205,6 +2205,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1122708836342318795, guid: 21262e54a060cfc40bd9649ccc938db9, type: 3}
+      propertyPath: _configs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1122708836342318795, guid: 21262e54a060cfc40bd9649ccc938db9, type: 3}
+      propertyPath: '_configs.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: ecbe0f82485a3a54bb472a77d56f697f, type: 2}
+    - target: {fileID: 1122708836342318795, guid: 21262e54a060cfc40bd9649ccc938db9, type: 3}
+      propertyPath: '_configs.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7ce5b5c6dea460b4890e65c7031d8c91, type: 2}
     - target: {fileID: 2196340755127573905, guid: 21262e54a060cfc40bd9649ccc938db9, type: 3}
       propertyPath: m_Name
       value: ConfigInitializer
@@ -2539,7 +2551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6091252840611278677, guid: 6416aad7f16a23e459073e7f81244b51, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2909,6 +2921,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScreenSwitcher
       objectReference: {fileID: 0}
+    - target: {fileID: 5922334670955592014, guid: 33cecd0a50147674e9a73d56972d445d, type: 3}
+      propertyPath: _screensPrefabs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922334670955592014, guid: 33cecd0a50147674e9a73d56972d445d, type: 3}
+      propertyPath: '_screensPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1529673528673429632, guid: 9ebc0748e588b354896bc03c19501ca4, type: 3}
+    - target: {fileID: 5922334670955592014, guid: 33cecd0a50147674e9a73d56972d445d, type: 3}
+      propertyPath: '_screensPrefabs.Array.data[1]'
+      value: 
+      objectReference: {fileID: 3606007701830151748, guid: 19af571d6452f574a85f54956c657734, type: 3}
+    - target: {fileID: 5922334670955592014, guid: 33cecd0a50147674e9a73d56972d445d, type: 3}
+      propertyPath: '_screensPrefabs.Array.data[2]'
+      value: 
+      objectReference: {fileID: -544657744236190532, guid: 5831c391f9cbda347b31f08d57a2be5a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 2555340862539839530, guid: 33cecd0a50147674e9a73d56972d445d, type: 3}

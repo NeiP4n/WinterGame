@@ -10,7 +10,6 @@ namespace Sources.Characters
         [SerializeField] private float backwardSpeed = 4f;
         [SerializeField] private float strafeSpeed = 5f;
         [SerializeField] private float speedRun = 10f;
-        [SerializeField] private float staminaDrainRate = 10f;
         [SerializeField] private Camera playerCamera;
         [SerializeField] private CharacterController player;
         public float MaxSpeed => speedRun;
@@ -27,8 +26,15 @@ namespace Sources.Characters
         public bool IsGrounded { get; private set; }
 
         private IInputManager _input;
+        private float speedMultiplier = 1f;
+        private bool sprintEnabled = true;
+        private bool movementEnabled = true;
+        private bool jumpEnabled = true;
 
-        public void SetActive(bool value) => active = value;
+        public float SpeedMultiplier => speedMultiplier;
+        public bool SprintEnabled => sprintEnabled;
+        public bool MovementEnabled => movementEnabled;
+        public bool JumpEnabled => jumpEnabled;
 
         public void Construct(IInputManager input)
         {
@@ -45,17 +51,12 @@ namespace Sources.Characters
 
         public void DoMove()
         {            
+            if (!movementEnabled) return;
+            
             Vector2 input = new Vector2(_input.Horizontal, _input.Vertical);
-            bool running = _input.SprintPressed;
-            bool isMoving = input.sqrMagnitude > 0.01f;
+            bool running = _input.SprintPressed && sprintEnabled;
 
             MovePlayer(running, input);
-
-            if (running && isMoving)
-            {
-                float speedFactor = Mathf.Clamp01(input.magnitude); 
-                float drainAmount = staminaDrainRate * speedFactor * Time.deltaTime;
-            }
         }
 
         private void MovePlayer(bool isRunning, Vector2 input)
@@ -78,12 +79,10 @@ namespace Sources.Characters
             float speedX = input.x != 0 ? (isRunning ? speedRun : strafeSpeed) : 0f;
 
             Vector3 moveDirection = forward * input.y * speedY + right * input.x * speedX;
+            moveDirection *= speedMultiplier;  
+            
             player.Move(moveDirection * Time.deltaTime);
         }
-
-
-
-
 
         public void ApplyGravity()
         {
@@ -139,6 +138,7 @@ namespace Sources.Characters
 
             return false;
         }
+
         public float CurrentSpeed
         {
             get
@@ -148,6 +148,26 @@ namespace Sources.Characters
                 v.y = 0f;
                 return v.magnitude;
             }
+        }
+
+        public void SetSpeedMultiplier(float value)
+        {
+            speedMultiplier = Mathf.Clamp(value, 0.1f, 5f);
+        }
+
+        public void SetSprintEnabled(bool value)
+        {
+            sprintEnabled = value;
+        }
+
+        public void SetJumpEnabled(bool value)
+        {
+            jumpEnabled = value;
+        }
+
+        public void SetMovementEnabled(bool value)
+        {
+            movementEnabled = value;
         }
     }
 }

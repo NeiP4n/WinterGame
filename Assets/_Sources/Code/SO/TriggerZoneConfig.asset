@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdf09eef40df9ac479dd530cfa6ce9b2, type: 3}
+  m_Name: TriggerZoneConfig
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerZoneConfig
+  oneShot: 0
+  movement:
+    overrideMovement: 1
+    speedMultiplier: 0.45
+    disableSprint: 1
+    disableJump: 0
+  camera:
+    overrideCamera: 1
+    blockRotation: 1
+    sensitivityMultiplier: 1
+    overrideFov: 0
+    fov: -1
+    cameraShake: 1
+    shakeIntensity: 1.95
+  visual:
+    overlayColor: {r: 0.3283019, g: 0.21990032, b: 0.21990032, a: 1}
+    overlayOpacity: 1
+    vignette: 1
+    chromaticAberration: 1
+    blurAmount: 0
+  postEffects:
+    colorTint: {r: 0.89433956, g: 0.27505153, b: 0.27505153, a: 1}
+    saturation: 100
+    contrast: 100

@@ -26,6 +26,8 @@ namespace Sources.Code.UI
 
         private void OnClickedPlayButton()
         {
+            _playButton.interactable = false;
+            
             _main.StartGame();
         }
     }
