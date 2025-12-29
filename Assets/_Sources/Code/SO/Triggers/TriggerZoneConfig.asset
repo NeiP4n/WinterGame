@@ -23,16 +23,16 @@ MonoBehaviour:
     blockRotation: 1
     sensitivityMultiplier: 1
     overrideFov: 0
-    fov: -1
+    fov: 77
     cameraShake: 1
     shakeIntensity: 1.95
   visual:
-    overlayColor: {r: 0.3283019, g: 0.21990032, b: 0.21990032, a: 1}
-    overlayOpacity: 1
+    overlayColor: {r: 1, g: 0.86125606, b: 0, a: 1}
+    overlayOpacity: 0.11
     vignette: 1
-    chromaticAberration: 1
-    blurAmount: 0
+    chromaticAberration: 0
+    blurAmount: 0.1
   postEffects:
-    colorTint: {r: 0.89433956, g: 0.27505153, b: 0.27505153, a: 1}
-    saturation: 100
-    contrast: 100
+    colorTint: {r: 1, g: 1, b: 1, a: 1}
+    saturation: -3
+    contrast: 3
