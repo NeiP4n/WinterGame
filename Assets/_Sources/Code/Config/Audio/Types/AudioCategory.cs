@@ -28,5 +28,12 @@ namespace Sources.Code.Config.Audio
         public SoundData doorOpen;
         public SoundData doorClose;
         public SoundData leverPull;
+        
+        [Header("Weather")]
+        public SoundData wind;
+        public SoundData snow;
+
+        [Header("Objects")]
+        public SoundData snowball;
     }
 }

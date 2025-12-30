@@ -26,7 +26,15 @@ MonoBehaviour:
     fov: 77
     cameraShake: 1
     shakeIntensity: 1.95
+  audio:
+    overrideAudio: 0
+    affectMusic: 0
+    affectWorld: 0
+    affectWeather: 0
+    volumeMultiplier: 1
+    fadeTime: 0.5
   visual:
+    useOverlay: 0
     overlayColor: {r: 1, g: 0.86125606, b: 0, a: 1}
     overlayOpacity: 0.11
     vignette: 1

@@ -1,3 +1,4 @@
+using TriInspector;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = nameof(TriggerZoneConfig), menuName = "Configs/" + nameof(TriggerZoneConfig), order = 0)]
@@ -5,19 +6,19 @@ public class TriggerZoneConfig : ScriptableObject
 {
     [Header("Основные настройки")]
     public bool oneShot = false;                   
-    [Header("🏃 ДВИЖЕНИЕ ИГРОКА")]
+    [Header("ДВИЖЕНИЕ ИГРОКА")]
     public MovementSettings movement = new();
 
-    [Header("📷 КАМЕРА")]
+    [Header("КАМЕРА")]
     public CameraSettings camera = new();
 
-    [Header("🎵 ЗВУК")]
+    [Header("ЗВУК")]
     public AudioSettings audio = new();
 
-    [Header("✨ ВИЗУАЛ")]
+    [Header("ВИЗУАЛ")]
     public VisualSettings visual = new();
 
-    [Header("💫 ПОСТ-ЭФФЕКТЫ")]
+    [Header("ПОСТ-ЭФФЕКТЫ")]
     public PostEffectSettings postEffects = new();
 }
 
@@ -25,11 +26,18 @@ public class TriggerZoneConfig : ScriptableObject
 public class MovementSettings
 {
     public bool overrideMovement = false;
-    
+
+    [ShowIf(nameof(overrideMovement))]
     [Range(0.1f, 3f)] public float speedMultiplier = 1f;
+
+    [ShowIf(nameof(overrideMovement))]
     public bool disableSprint = false;
+
+    [ShowIf(nameof(overrideMovement))]
     public bool disableJump = false;
 }
+
+
 
 
 [System.Serializable]
@@ -37,18 +45,24 @@ public class CameraSettings
 {
     public bool overrideCamera = false;
 
-    [Header("Rotation")]
+    [ShowIf(nameof(overrideCamera))]
     public bool blockRotation = false;
+
+    [ShowIf(nameof(overrideCamera))]
     [Range(0.1f, 3f)]
     public float sensitivityMultiplier = 1f;
 
-    [Header("FOV")]
+    [ShowIf(nameof(overrideCamera))]
     public bool overrideFov = false;
+
+    [ShowIf(nameof(overrideFov))]
     [Range(30f, 120f)]
     public float fov = 60f;
 
-    [Header("Shake")]
+    [ShowIf(nameof(overrideCamera))]
     public bool cameraShake = false;
+
+    [ShowIf(nameof(cameraShake))]
     [Range(0f, 5f)]
     public float shakeIntensity = 1f;
 }
@@ -56,14 +70,23 @@ public class CameraSettings
 [System.Serializable]
 public class VisualSettings
 {
-    public Color overlayColor = new Color(0,0,0,0);
-    [Range(0f, 1f)] public float overlayOpacity = 0f;
+    public bool useOverlay = false;
+
+    [ShowIf(nameof(useOverlay))]
+    public Color overlayColor = new Color(0, 0, 0, 0);
+
+    [ShowIf(nameof(useOverlay))]
+    [Range(0f, 1f)]
+    public float overlayOpacity = 0f;
 
     public bool vignette = false;
     public bool chromaticAberration = false;
 
-    [Range(0f, 10f)] public float blurAmount = 0f;
+    [Range(0f, 10f)]
+    public float blurAmount = 0f;
 }
+
+
 
 [System.Serializable]
 public class PostEffectSettings
@@ -72,3 +95,26 @@ public class PostEffectSettings
     [Range(-100f, 100f)] public float saturation = 0f;
     [Range(-100f, 100f)] public float contrast = 0f;
 }
+
+[System.Serializable]
+public class AudioSettings
+{
+    public bool overrideAudio = false;
+
+    [ShowIf(nameof(overrideAudio))]
+    public bool affectMusic = false;
+
+    [ShowIf(nameof(overrideAudio))]
+    public bool affectWorld = false;
+
+    [ShowIf(nameof(overrideAudio))]
+    public bool affectWeather = false;
+
+    [ShowIf(nameof(overrideAudio))]
+    [Range(0f, 1f)] public float volumeMultiplier = 1f;
+
+    [ShowIf(nameof(overrideAudio))]
+    [Range(0f, 5f)] public float fadeTime = 0.5f;
+}
+
+

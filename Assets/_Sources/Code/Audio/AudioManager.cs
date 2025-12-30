@@ -7,9 +7,18 @@ namespace Sources.Code.Audio
     {
         public static AudioManager Instance;
 
+        [Header("Category")]
         [SerializeField] private AudioCategory audioCategory;
-        [SerializeField] private AudioSource sfxSource;
-        [SerializeField] private AudioSource musicSource;
+
+        [Header("Sources")]
+        [SerializeField] private AudioSource worldSource;   // шаги, двери, объекты
+        [SerializeField] private AudioSource musicSource;   // музыка
+        [SerializeField] private AudioSource weatherSource; // ветер, снег
+
+        [Header("Volumes")]
+        [Range(0f, 1f)] public float worldVolume = 1f;
+        [Range(0f, 1f)] public float musicVolume = 1f;
+        [Range(0f, 1f)] public float weatherVolume = 1f;
 
         private void Awake()
         {
@@ -23,20 +32,32 @@ namespace Sources.Code.Audio
             DontDestroyOnLoad(gameObject);
         }
 
+        // ======================
+        // BACKWARD COMPATIBLE
+        // ======================
         public static void Play(SoundData sound)
+        {
+            PlayWorld(sound);
+        }
+
+        // ======================
+        // WORLD / SFX
+        // ======================
+        public static void PlayWorld(SoundData sound)
         {
             if (Instance == null || sound == null || sound.clips.Length == 0)
                 return;
 
             var clip = sound.clips[Random.Range(0, sound.clips.Length)];
-
-            Instance.sfxSource.pitch = sound.randomPitch
-                ? Random.Range(sound.pitch - 0.1f, sound.pitch + 0.1f)
-                : sound.pitch;
-
-            Instance.sfxSource.PlayOneShot(clip, sound.volume);
+            Instance.worldSource.PlayOneShot(
+                clip,
+                sound.volume * Instance.worldVolume
+            );
         }
 
+        // ======================
+        // MUSIC
+        // ======================
         public static void PlayMusic(SoundData music)
         {
             if (Instance == null || music == null || music.clips.Length == 0)
@@ -46,9 +67,23 @@ namespace Sources.Code.Audio
                 return;
 
             Instance.musicSource.clip = music.clips[0];
-            Instance.musicSource.volume = music.volume;
+            Instance.musicSource.volume = music.volume * Instance.musicVolume;
             Instance.musicSource.loop = true;
             Instance.musicSource.Play();
+        }
+
+        // ======================
+        // WEATHER
+        // ======================
+        public static void PlayWeather(SoundData sound)
+        {
+            if (Instance == null || sound == null || sound.clips.Length == 0)
+                return;
+
+            Instance.weatherSource.clip = sound.clips[0];
+            Instance.weatherSource.volume = sound.volume * Instance.weatherVolume;
+            Instance.weatherSource.loop = true;
+            Instance.weatherSource.Play();
         }
 
         public static AudioCategory Cat => Instance.audioCategory;
