@@ -18,27 +18,17 @@ namespace Sources.Code
 
         private void Start()
         {
-            // var audioSystem = AudioSystem.Instance;
-            // audioSystem.Init();
-            
             var screenSwitcher = ScreenSwitcher.Instance;
             screenSwitcher.Init();
 
-            // var particlesPlayer = ParticlesPlayer.Instance;
-            // particlesPlayer.Init(_particlesParent);
-            
             _game = new Gameplay.Game(this);
 
-            if (Gameplay.GameFlow.StartGameplayAfterSceneLoad)
-            {
-                Gameplay.GameFlow.StartGameplayAfterSceneLoad = false;
-                _game.StartGame();
-            }
-            else
-            {
-                screenSwitcher.ShowScreen<MenuScreen>().Init(this);
-            }         
+            screenSwitcher.ShowScreen<MenuScreen>().Init(this);
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
+
     
         private void Update()
         {

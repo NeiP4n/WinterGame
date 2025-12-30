@@ -144,7 +144,8 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 0.1.0
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -830,24 +831,24 @@ PlayerSettings:
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
-    Android: DOTWEEN
-    EmbeddedLinux: DOTWEEN
-    GameCoreScarlett: DOTWEEN
-    GameCoreXboxOne: DOTWEEN
-    Kepler: DOTWEEN
-    LinuxHeadlessSimulation: DOTWEEN
-    Nintendo Switch: DOTWEEN
-    PS4: DOTWEEN
-    PS5: DOTWEEN
-    QNX: DOTWEEN
-    ReservedCFE: DOTWEEN
-    Standalone: DOTWEEN;GRIFFIN;GRIFFIN_2020;GRIFFIN_URP
-    VisionOS: DOTWEEN
-    WebGL: DOTWEEN;GRIFFIN;GRIFFIN_2020;GRIFFIN_URP
+    Android: DOTWEEN;TMP_PRESENT;URP_PRESENT;HDRP_PRESENT
+    EmbeddedLinux: DOTWEEN;TMP_PRESENT;URP_PRESENT;HDRP_PRESENT
+    GameCoreScarlett: DOTWEEN;TMP_PRESENT;URP_PRESENT;HDRP_PRESENT
+    GameCoreXboxOne: DOTWEEN;TMP_PRESENT;URP_PRESENT;HDRP_PRESENT
+    Kepler: DOTWEEN;TMP_PRESENT;URP_PRESENT;HDRP_PRESENT
+    LinuxHeadlessSimulation: DOTWEEN;TMP_PRESENT;URP_PRESENT;HDRP_PRESENT
+    Nintendo Switch: DOTWEEN;TMP_PRESENT;URP_PRESENT;HDRP_PRESENT
+    PS4: DOTWEEN;TMP_PRESENT;URP_PRESENT;HDRP_PRESENT
+    PS5: DOTWEEN;TMP_PRESENT;URP_PRESENT;HDRP_PRESENT
+    QNX: DOTWEEN;TMP_PRESENT;URP_PRESENT;HDRP_PRESENT
+    ReservedCFE: DOTWEEN;TMP_PRESENT;URP_PRESENT;HDRP_PRESENT
+    Standalone: DOTWEEN;GRIFFIN;GRIFFIN_2020;GRIFFIN_URP;TMP_PRESENT;URP_PRESENT;HDRP_PRESENT
+    VisionOS: DOTWEEN;TMP_PRESENT;URP_PRESENT;HDRP_PRESENT
+    WebGL: DOTWEEN;GRIFFIN;GRIFFIN_2020;GRIFFIN_URP;TMP_PRESENT;URP_PRESENT;HDRP_PRESENT
     Windows Store Apps: DOTWEEN
-    XboxOne: DOTWEEN
+    XboxOne: DOTWEEN;TMP_PRESENT;URP_PRESENT;HDRP_PRESENT
     iPhone: DOTWEEN
-    tvOS: DOTWEEN
+    tvOS: DOTWEEN;TMP_PRESENT;URP_PRESENT;HDRP_PRESENT
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
