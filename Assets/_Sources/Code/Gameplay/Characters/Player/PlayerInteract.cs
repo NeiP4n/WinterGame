@@ -9,6 +9,7 @@ namespace Sources.Code.Gameplay.Interaction
         [SerializeField] private Camera playerCamera;
         [SerializeField] private float interactDistance = 3f;
         [SerializeField] private LayerMask interactMask;
+        private OutlineObject currentOutline;
 
         private IInputManager input;
         private IInteractable current;
@@ -53,7 +54,21 @@ namespace Sources.Code.Gameplay.Interaction
 
             if (detected != current)
             {
+                if (currentOutline != null)
+                    currentOutline.DisableOutline();
+
                 current = detected;
+                currentOutline = null;
+
+                if (current != null)
+                {
+                    currentOutline = (current as Component)
+                        .GetComponentInParent<OutlineObject>();
+
+                    if (currentOutline != null)
+                        currentOutline.EnableOutline();
+                }
+
                 OnFocusChanged?.Invoke(current);
             }
         }

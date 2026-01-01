@@ -8,6 +8,10 @@ namespace Sources.Code.Interfaces
         bool SprintPressed { get; }
         bool RagdollPressed { get; }
 
+        bool IsLocked { get; }
+        void Lock();
+        void Unlock();
+
         bool ConsumeJump();
         bool ConsumeCrouch();
         bool ConsumeInteract();
@@ -15,6 +19,5 @@ namespace Sources.Code.Interfaces
         bool ConsumeLeftClick();
         bool ConsumeRightClick();
         bool ConsumeCancel();
-
     }
 }

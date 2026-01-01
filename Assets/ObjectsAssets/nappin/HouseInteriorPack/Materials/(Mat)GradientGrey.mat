@@ -24,13 +24,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: (Mat)GradientGrey
-  m_Shader: {fileID: 4800000, guid: 1cf36f16666d10d4f82c6dded549d7db, type: 3}
+  m_Shader: {fileID: 4800000, guid: 02bc498e6923f5c4782cb0ce11c1b3e0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords:
   - _DISABLE_SSR_TRANSPARENT
   - _NORMALMAP_TANGENT_SPACE
+  - _UNLITLIGHTING_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -203,6 +204,7 @@ Material:
     - _AlphaRemapMax: 1
     - _AlphaRemapMin: 0
     - _AlphaSrcBlend: 1
+    - _AlphaTest: 0
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
     - _Anisotropy: 0
@@ -331,6 +333,8 @@ Material:
     - _UVDetail: 1
     - _UVEmissive: 0
     - _UVSec: 1
+    - _UnlitBrightness: 1
+    - _UnlitLighting: 1
     - _UseEmissiveIntensity: 0
     - _UseShadowThreshold: 0
     - _WorkflowMode: 1

@@ -9,14 +9,41 @@ namespace Sources.Code.UI
     {
         [SerializeField] private Image _image;
         [SerializeField] private UIInteract _uiInteract;
-        
-        private Color _hideScreenColor = Color.black;
-        
+
+        private Tween _fadeTween;
+
         public void Init()
         {
-            _image.color = _hideScreenColor;
-            _image.DOFade(0, 2).SetEase(Ease.InCubic);
+            _fadeTween?.Kill();
+
+            var c = _image.color;
+            c.a = 100f;
+            _image.color = c;
+
+            FadeOut(3f);
         }
+
+        public void SetBlackInstant()
+        {
+            _fadeTween?.Kill();
+
+            var c = _image.color;
+            c.a = 1f;
+            _image.color = c;
+        }
+
+        public Tween FadeOut(float duration, Ease ease = Ease.OutCubic)
+        {
+            _fadeTween?.Kill();
+            return _fadeTween = _image.DOFade(0f, duration).SetEase(ease);
+        }
+
+        public Tween FadeIn(float duration, Ease ease = Ease.InCubic)
+        {
+            _fadeTween?.Kill();
+            return _fadeTween = _image.DOFade(1f, duration).SetEase(ease);
+        }
+
         public UIInteract GetUIInteract()
         {
             return _uiInteract;

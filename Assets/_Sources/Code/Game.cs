@@ -143,6 +143,7 @@ namespace Sources.Code.Gameplay
             }
         }
 
+
         private void RestartLevel()
         {
             ClearLevel();

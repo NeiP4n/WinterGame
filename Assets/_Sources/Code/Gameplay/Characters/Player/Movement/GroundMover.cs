@@ -43,11 +43,18 @@ namespace Sources.Characters
 
         void Update()
         {
-            if (!active) return;
+            if (_input == null)
+                return;
 
-            DoMove();        
-            ApplyGravity();   
+            if (active)
+                ApplyGravity(); 
+
+            if (_input.IsLocked || !active)
+                return;
+
+            DoMove();
         }
+
 
         public void DoMove()
         {            

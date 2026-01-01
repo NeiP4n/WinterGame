@@ -14,17 +14,21 @@ namespace Game.Managers
 
         [Header("Camera")]
         [SerializeField] private CameraController _camera;
-
+        private IInputManager _input;
         public PlayerInteract Interact => _interact;
 
         public void Construct(IInputManager input)
         {
+            _input = input;
+
             _mover.Construct(input);
             _camera.Construct(input);
             _interact.Construct(input);
         }
         void Update()
         {
+            if (_input.IsLocked)
+                return;
             _interact.UpdateInteract();
         }
     }

@@ -784,7 +784,6 @@ GameObject:
   - component: {fileID: 5976265238155571695}
   - component: {fileID: 8388512701590746661}
   - component: {fileID: 6812216496209665931}
-  - component: {fileID: 6563761400491337890}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -933,23 +932,6 @@ MonoBehaviour:
   _PostProcessShaderAccurate: {fileID: 4800000, guid: 2ebed186567d3c244a87538744a62920, type: 3}
   _PixelationShader: {fileID: 4800000, guid: f2da0e2a14a532548b5db043244b3df1, type: 3}
   _InterlacingShader: {fileID: 4800000, guid: 03ebd34214b41ef459d7ee6753b062be, type: 3}
---- !u!114 &6563761400491337890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2424428997579557359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f068eb55175b624ebb6400d52a22322, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
-  playerCamera: {fileID: 0}
-  interactDistance: 3
-  interactMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &2613503137965348220
 GameObject:
   m_ObjectHideFlags: 0
@@ -2577,6 +2559,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9ce081c1f68f54f84a6d2f3af82fad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sources.Code.Gameplay.Grab.GrabInteractor
+  handHoldLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  handSocket: {fileID: 0}
   jointAnchorDistance: 2.5
   throwingForce: 10
   drag: 10

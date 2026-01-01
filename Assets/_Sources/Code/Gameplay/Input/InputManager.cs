@@ -7,6 +7,12 @@ namespace Sources.Managers
 {
     public class InputManager : SingletonBehaviour<InputManager>, IInputManager
     {
+        private int _lockCount;
+        public bool IsLocked => _lockCount > 0;
+        public void Lock() => _lockCount++;
+        public void Unlock() => _lockCount = Mathf.Max(0, _lockCount - 1);
+
+
         public float Horizontal { get; private set; }
         public float Vertical { get; private set; }
 

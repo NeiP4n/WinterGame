@@ -94,6 +94,9 @@ namespace Sources.Controllers
 
         private void LateUpdate()
         {
+            if (input.IsLocked)
+                return;
+
             if (follow != null)
                 follow.UpdateCameraPosition(cam.transform);
 
