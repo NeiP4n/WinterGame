@@ -5,7 +5,8 @@ using UnityEngine;
 public class TriggerZoneConfig : ScriptableObject
 {
     [Header("Основные настройки")]
-    public bool oneShot = false;                   
+    public bool oneShot = false;
+
     [Header("ДВИЖЕНИЕ ИГРОКА")]
     public MovementSettings movement = new();
 
@@ -20,7 +21,11 @@ public class TriggerZoneConfig : ScriptableObject
 
     [Header("ПОСТ-ЭФФЕКТЫ")]
     public PostEffectSettings postEffects = new();
+
+    [Header("ЗАМОРОЗКА ИГРОКА")]
+    public FreezeSettings freeze = new();
 }
+
 
 [System.Serializable]
 public class MovementSettings
@@ -36,9 +41,41 @@ public class MovementSettings
     [ShowIf(nameof(overrideMovement))]
     public bool disableJump = false;
 }
+[System.Serializable]
+public class FreezeSettings
+{
+    public bool freezeEnabled = false;
 
+    [ShowIf(nameof(freezeEnabled))]
+    [Range(0f, 1f)]
+    public float maxFreeze = 1f;
 
+    [ShowIf(nameof(freezeEnabled))]
+    [Range(0.01f, 5f)]
+    public float freezeSpeed = 0.5f;
 
+    [ShowIf(nameof(freezeEnabled))]
+    public bool fastFreeze = false;
+
+    [ShowIf(nameof(freezeEnabled))]
+    [Range(1f, 10f)]
+    public float fastFreezeMultiplier = 2f;
+
+    [ShowIf(nameof(freezeEnabled))]
+    [Range(0.01f, 5f)]
+    public float recoverSpeed = 1f;
+
+    [ShowIf(nameof(freezeEnabled))]
+    [Tooltip("Задержка перед началом разморозки после выхода из зоны (в секундах)")]
+    [Range(0f, 10f)]
+    public float unfreezeDelay = 2f;
+
+    [ShowIf(nameof(freezeEnabled))]
+    public bool affectMovement = true;
+
+    [ShowIf(nameof(freezeEnabled))]
+    public bool affectCamera = true;
+}
 
 [System.Serializable]
 public class CameraSettings

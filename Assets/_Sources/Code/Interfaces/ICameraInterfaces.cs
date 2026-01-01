@@ -12,5 +12,10 @@ namespace Game.Interfaces
         Vector3 Position { get; }
         Transform HeadBone { get; }
     }
+    public interface IFrozenCamera
+    {
+        float BaseSensitivity { get; }
+        void SetFreezeSensitivity(float value);
+    }
 
 }
