@@ -7,6 +7,13 @@ using Game.Managers;
 [RequireComponent(typeof(Collider))]
 public class TriggerZone : MonoBehaviour
 {
+    [System.Serializable]
+    private class PlayerState
+    {
+        public float speedMultiplier;
+        public bool sprintEnabled;
+    }
+
     [SerializeField] private TriggerZoneConfig config;
 
     private bool triggered;
@@ -27,6 +34,8 @@ public class TriggerZone : MonoBehaviour
 
         SavePlayerState(player);
         ApplyEnterEffects(player);
+        ApplyFreeze(player);
+
         triggered = true;
     }
 
@@ -36,6 +45,7 @@ public class TriggerZone : MonoBehaviour
             return;
 
         RestorePlayerState(player);
+        RemoveFreeze(player);
     }
 
     private bool IsPlayer(Collider other, out PlayerCharacter player)
@@ -98,11 +108,25 @@ public class TriggerZone : MonoBehaviour
         if (post != null)
             post.Restore();
     }
-}
 
-[System.Serializable]
-public class PlayerState
-{
-    public float speedMultiplier;
-    public bool sprintEnabled;
+    private void ApplyFreeze(PlayerCharacter player)
+    {
+        if (!config.freeze.freezeEnabled)
+            return;
+
+        var freeze = player.GetComponent<FrozenController>();
+        if (freeze != null)
+        {
+            freeze.EnterFreezeZone(config.freeze);
+        }
+    }
+
+    private void RemoveFreeze(PlayerCharacter player)
+    {
+        var freeze = player.GetComponent<FrozenController>();
+        if (freeze != null)
+        {
+            freeze.ExitFreezeZone();
+        }
+    }
 }

@@ -67,4 +67,10 @@ namespace Sources.Code.Interfaces
     {
         void Interact(PlayerInteract playerInteract);
     }
+    public interface IFrozenMovement
+    {
+        float BaseMultiplier { get; }
+        void SetFreezeMultiplier(float value);
+    }
+
 }
