@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Wooden_House_Texture_2
-  m_Shader: {fileID: 4800000, guid: 1cf36f16666d10d4f82c6dded549d7db, type: 3}
+  m_Shader: {fileID: 4800000, guid: 02bc498e6923f5c4782cb0ce11c1b3e0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -63,7 +63,7 @@ Material:
     - _DitherStrength: 0.5
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _Metallic: 0
+    - _Metallic: 0.504
     - _PixelSize: 0.1
     - _QueueOffset: 0
     - _ResolutionX: 320
